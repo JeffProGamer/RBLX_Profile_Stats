@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LGIT Profile - Legendary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(to bottom right, #0f172a, #1e293b);
+      color: #e2e8f0;
+    }
+    .fade-in {
+      animation: fadeIn 1.2s ease-in-out forwards;
+      opacity: 0;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+    .glow {
+      text-shadow: 0 0 10px #0ea5e9, 0 0 20px #0ea5e9;
+    }
+    .smooth-card {
+      transition: all 0.4s ease;
+    }
+    .smooth-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 15px 30px rgba(14, 165, 233, 0.3);
+    }
+    .neon-border {
+      border: 2px solid #0ea5e9;
+      box-shadow: 0 0 10px #0ea5e9;
+    }
+    .hidden-transition {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.8s ease;
+    }
+    .visible-transition {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="text-slate-100">
+  <audio id="bgm" src="https://cdn.pixabay.com/audio/2023/01/08/audio_cdc3c1eb67.mp3" autoplay loop></audio>
+
+  <div class="fixed top-4 right-4 z-50">
+    <button id="toggle-music" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-xl text-white font-bold">🔊 Music: On</button>
+  </div>
+
+  <div class="min-h-screen flex flex-col items-center p-6 fade-in">
+    <h1 id="username" class="text-5xl font-extrabold mb-6 text-cyan-400 glow">Loading...</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
+      <!-- Avatar Card -->
+      <div class="bg-slate-800 rounded-2xl p-6 shadow-xl neon-border smooth-card hidden-transition">
+        <h2 class="text-2xl font-semibold mb-4 text-cyan-300">Avatar</h2>
+        <button id="toggle-btn" class="mb-4 px-4 py-2 rounded-xl bg-cyan-500 text-white hover:bg-cyan-600 transition">
+          Toggle 3D View
+        </button>
+        <div id="avatar-container">
+          <img id="avatar-2d" class="rounded-xl w-full" 
+            src="https://thumbnails.roblox.com/v1/users/avatar?userIds=1519939877&size=420x420&format=Png&isCircular=false"
+            alt="Roblox Avatar"/>
+          <div id="three-container" class="hidden mt-4 w-full h-[400px] rounded-xl"></div>
+        </div>
+      </div>
+
+      <!-- LGIT Stats -->
+      <div class="bg-slate-800 rounded-2xl p-6 shadow-xl neon-border smooth-card hidden-transition">
+        <h2 class="text-2xl font-semibold mb-4 text-cyan-300">LGIT Statistics</h2>
+        <ul class="space-y-2 text-lg">
+          <li><strong>Player Rank:</strong> Diamond Tier</li>
+          <li><strong>Total Wins:</strong> 999</li>
+          <li><strong>Play Time:</strong> 1000+ hours</li>
+          <li><strong>Leaderboard Position:</strong> #1</li>
+        </ul>
+        <h2 class="text-2xl font-semibold mt-6 mb-4 text-cyan-300">Roblox Stats</h2>
+        <ul id="roblox-stats" class="space-y-2 text-lg">
+          <li><strong>Username:</strong> <span id="roblox-username">Loading...</span></li>
+          <li><strong>Display Name:</strong> <span id="display-name">Loading...</span></li>
+          <li><strong>Join Date:</strong> <span id="join-date">Loading...</span></li>
+        </ul>
+      </div>
+
+      <!-- Games -->
+      <div class="bg-slate-800 rounded-2xl p-6 shadow-xl neon-border smooth-card hidden-transition">
+        <h2 class="text-2xl font-semibold mb-4 text-cyan-300">Favorite Games</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <a class="smooth-card rounded-xl overflow-hidden block" href="https://www.roblox.com/games/920587237/Adopt-Me" target="_blank">
+            <img class="w-full h-32 object-cover" src="https://tr.rbxcdn.com/0c5c3e2b2a6b4c2e1e2f0b7a5c2e1b7a/420/420/Image/Png" />
+            <h3 class="text-lg font-medium mt-2 text-center text-cyan-200">Adopt Me!</h3>
+          </a>
+          <a class="smooth-card rounded-xl overflow-hidden block" href="https://www.roblox.com/games/2753915549/Blox-Fruits" target="_blank">
+            <img class="w-full h-32 object-cover" src="https://tr.rbxcdn.com/9b7e7c2a3b4c5d6e7f8a9b0c1d2e3f44/420/420/Image/Png" />
+            <h3 class="text-lg font-medium mt-2 text-center text-cyan-200">Blox Fruits</h3>
+          </a>
+          <a class="smooth-card rounded-xl overflow-hidden block" href="https://www.roblox.com/games/623870569/Brookhaven-RP" target="_blank">
+            <img class="w-full h-32 object-cover" src="https://tr.rbxcdn.com/1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c64/420/420/Image/Png" />
+            <h3 class="text-lg font-medium mt-2 text-center text-cyan-200">Brookhaven</h3>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let is3D = false;
+    let renderer = null;
+
+    fetch('https://users.roblox.com/v1/users/1519939877')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('username').textContent = `${data.displayName}'s LGIT Profile`;
+        document.getElementById('roblox-username').textContent = data.name;
+        document.getElementById('display-name').textContent = data.displayName;
+        document.getElementById('join-date').textContent = new Date(data.created).toLocaleDateString();
+      })
+      .catch(() => {
+        document.getElementById('roblox-stats').innerHTML = '<li class="text-red-500">Failed to load Roblox data.</li>';
+      });
+
+    document.getElementById('toggle-btn').addEventListener('click', () => {
+      is3D = !is3D;
+      document.getElementById('toggle-btn').textContent = `Toggle ${is3D ? '2D' : '3D'} View`;
+
+      const avatar2D = document.getElementById('avatar-2d');
+      const container = document.getElementById('three-container');
+
+      if (is3D) {
+        avatar2D.classList.add('hidden');
+        container.classList.remove('hidden');
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        container.innerHTML = '';
+        container.appendChild(renderer.domElement);
+
+        const geometry = new THREE.BoxGeometry(1, 2, 1);
+        const material = new THREE.MeshBasicMaterial({ color: 0x0ea5e9 });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+        camera.position.z = 5;
+
+        const animate = () => {
+          if (renderer) {
+            cube.rotation.y += 0.01;
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+          }
+        };
+        animate();
+      } else {
+        avatar2D.classList.remove('hidden');
+        container.classList.add('hidden');
+        if (renderer) {
+          renderer.dispose();
+          renderer = null;
+        }
+      }
+    });
+
+    // Smooth reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible-transition');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.hidden-transition').forEach(el => observer.observe(el));
+
+    // Toggle background music
+    const bgm = document.getElementById('bgm');
+    const toggleBtn = document.getElementById('toggle-music');
+    toggleBtn.addEventListener('click', () => {
+      if (bgm.paused) {
+        bgm.play();
+        toggleBtn.textContent = '🔊 Music: On';
+      } else {
+        bgm.pause();
+        toggleBtn.textContent = '🔇 Music: Off';
+      }
+    });
+  </script>
+</body>
+</html>
